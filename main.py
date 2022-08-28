@@ -29,9 +29,7 @@ toolbox.register('mate', tools.cxOnePoint)
 toolbox.register('mutate', tools.mutFlipBit, indpb=1.0/MAX_LENGHT)
 
 stats = tools.Statistics(lambda ind: ind.fitness.values)
-stats.register('max', np.max)
-stats.register('avg', np.mean)
-stats.register('values', np.array)
+stats.register('values', list)
 
 population, logbook = algorithms.eaSimple(population, toolbox,
                                           cxpb=P_CROSSOVER,
@@ -40,7 +38,7 @@ population, logbook = algorithms.eaSimple(population, toolbox,
                                           stats=stats,
                                           verbose=True)
 
-max_fitness_values, mean_fitness_values, vals = logbook.select('max', 'avg', 'values')
+vals = logbook.select('values')
 
 import time
 
